@@ -1,0 +1,77 @@
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cocimex</title>
+</head>
+
+<body>
+  <main>
+    <nav>
+      <a href="#" class="logo">Cocimex</a>
+      <div class="links-container">
+        <a href="#"> Home </a>
+        <a href="#"> Contact </a>
+        <a href="#"> About </a>
+        <!-- <p class="user-welcome">Welcome, {{ userName }}</p> -->
+        <button (click)="logoutUser()" class="login-btn">Logout</button>
+      </div>
+    </nav>
+    <section>
+      <div class="secure-container btn-container">
+        <button (click)="callSecuredApi()" class="button" role="button"> click to see the data
+        </button>
+        <div class="container" *ngIf="isShown">
+          <table class="table table-striped">
+
+            <thead>
+        
+                <tr>
+        
+                  <th style="color:#FFFF">Case No.</th>
+        
+                  <th style="color:#FFFF">State</th>
+        
+                  <th style="color:#FFFF">User Name</th>
+        
+                  <th style="color:#FFFF">Created Date</th>
+  
+                  <th style="color:#FFFF">Update Date</th>
+        
+                </tr>
+        
+            </thead>
+        
+            <tbody>
+        
+              <tr *ngFor="let student of agencies">
+        
+                <td style="color:rgb(75, 174, 246)">{{ student.caseNumber }}</td>
+        
+                <td style="color:rgb(75, 174, 246)">{{ student.state }}</td>
+        
+                <td style="color:rgb(75, 174, 246)">{{ student.username }}</td>
+        
+                <td style="color:rgb(75, 174, 246)">{{ student.createDate }}</td>
+  
+                <td style="color:rgb(75, 174, 246)">{{ student.lastUpdate }}</td>
+        
+              </tr>
+        
+            </tbody>
+        
+          </table>
+        </div>
+
+        <!-- <p class="server-data">{{ secureData }}</p> -->
+      </div>
+      <div class="unsecure-container btn-container">
+        <button (click)="addNewEntry()" class="button" role="button">
+          New Entry
+        </button>
+        <p>Click here to make a new Entry</p>
+        <p class="server-data">{{ unsecureData }}</p>
+      </div>
+    </section>
+  </main>
+</body>
