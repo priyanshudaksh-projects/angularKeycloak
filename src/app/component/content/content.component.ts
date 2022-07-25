@@ -7,13 +7,22 @@ import { AppService } from 'src/app/services/component.service';
 import { GlobalConstants } from '../../common/global-constants';
 
 
-interface Users {
-  caseNumber:Number,
-  username:String,
-  state:String,
-  createDate:String,
-  lastUpdated:String
+// interface Users {
+//   caseNumber:Number,
+//   username:String,
+//   state:String,
+//   createDate:String,
+//   lastUpdated:String
 
+// }
+
+interface SearchResults {
+  // searchResults:any,
+  totalPages:Number,
+  totalResults:Number,
+  currentPage:Number,
+  numberOfRecords:Number
+  
 }
 
 @Component({
@@ -28,11 +37,19 @@ export class ContentComponent {
   secureData: any;
   unsecureData = '';
   agencies:any;
+
   value:any;
   i=0;
   data:any;
   isShown: boolean = false ;
 
+  totalPages:any;
+  totalResults:any;
+  currentPage:any;
+  numberOfRecords:any
+  searchResults:any;
+  
+  username: string = '';
   
 
   constructor(
@@ -64,9 +81,15 @@ export class ContentComponent {
 
   callSecuredApi() {
     this.isShown = ! this.isShown;
-    this.appService.callSecureDataApi().subscribe(
+    console.log(this.userName)
+    this.appService.callSecureDataApi(this.username).subscribe(
       (data: any) => {
-        this.agencies = <Users[]>data; 
+        //this.agencies = <SearchResults[]>data; 
+        console.log(data)
+        this.totalPages = data.totalPages;
+        this.searchResults = data.searchResults;
+        this.currentPage = data.currentPage;
+
        
       },
       (error: any) => {
@@ -90,5 +113,8 @@ export class ContentComponent {
     );
   }
 
+  nextPage(){
+    
+  }
   
 }

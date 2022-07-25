@@ -15,6 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ContentComponent } from './component/content/content.component';
 import { initializeKeycloak } from './init/keycloak-init.factory';
 import { ConfigInitService } from './init/config-init.service';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent, ContentComponent],
@@ -30,6 +31,7 @@ import { ConfigInitService } from './init/config-init.service';
     KeycloakAngularModule,
     NgbModule,
     AppRoutingModule,
+    FormsModule
   ],
   providers: [
     ConfigInitService,

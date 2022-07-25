@@ -6,7 +6,7 @@ import { GlobalConstants } from '../common/global-constants';
   providedIn: 'root',
 })
 export class AppService {
-  private REST_API_SERVER_SECURE = 'https://dev.cocimexanpilot.org/api/v1/missingpersondocument';
+  private REST_API_SERVER_SECURE = 'https://api-am.cocimexanpilot.org/api/v1/search';
   private REST_API_SERVER_UNSECURE = 'https://dev.cocimexanpilot.org/api/v1/missingpersondocument';
   private REST_API_SERVER_LOGIN = GlobalConstants.apiURL + '/api/v1/login';
 
@@ -29,18 +29,22 @@ export class AppService {
     );
   }
 
-  callSecureDataApi() {
+  callSecureDataApi(searchCriteria: any) {
     const headerDict = {
       'Content-Type': 'application/json',
       Accept: '*/*',
       Authorization: 'bearer ' + localStorage.getItem('access_token'),
     };
 
+    const body = {
+      searchCriteria:searchCriteria
+    }
+
     const requestOptions = {
       headers: new HttpHeaders(headerDict),
     };
 
-    return this.httpClient.get(this.REST_API_SERVER_SECURE, requestOptions);
+    return this.httpClient.post(this.REST_API_SERVER_SECURE, body, requestOptions);
   }
 
   callUnsecureDataApi() {

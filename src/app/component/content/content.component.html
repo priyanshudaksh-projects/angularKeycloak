@@ -19,8 +19,11 @@
     </nav>
     <section>
       <div class="secure-container btn-container">
-        <button (click)="callSecuredApi()" class="button" role="button"> click to see the data
+        <div class="search-field">
+        <input type="text" id="input-search" placeholder="ENTER SEARCH CRITERIA" [(ngModel)]="username">
+        <button (click)="callSecuredApi()" class="button" role="button"> SEARCH
         </button>
+      </div>
         <div class="container" *ngIf="isShown">
           <table class="table table-striped">
 
@@ -28,15 +31,15 @@
         
                 <tr>
         
-                  <th style="color:#FFFF">Case No.</th>
+                  <th style="color:#FFFF">First Name</th>
         
-                  <th style="color:#FFFF">State</th>
+                  <th style="color:#FFFF">Family Name</th>
         
-                  <th style="color:#FFFF">User Name</th>
+                  <th style="color:#FFFF">Birth Place</th>
         
-                  <th style="color:#FFFF">Created Date</th>
+                  <th style="color:#FFFF">DOB</th>
   
-                  <th style="color:#FFFF">Update Date</th>
+                  <th style="color:#FFFF">Father Name</th>
         
                 </tr>
         
@@ -44,34 +47,42 @@
         
             <tbody>
         
-              <tr *ngFor="let student of agencies">
+              <tr *ngFor="let j of searchResults">
         
-                <td style="color:rgb(75, 174, 246)">{{ student.caseNumber }}</td>
+                <td style="color:rgb(75, 174, 246)">{{ j.firstName }}</td>
         
-                <td style="color:rgb(75, 174, 246)">{{ student.state }}</td>
+                <td style="color:rgb(75, 174, 246)">{{ j.familyName }}</td>
         
-                <td style="color:rgb(75, 174, 246)">{{ student.username }}</td>
+                <td style="color:rgb(75, 174, 246)">{{ j.birthplace }}</td>
         
-                <td style="color:rgb(75, 174, 246)">{{ student.createDate }}</td>
+                <td style="color:rgb(75, 174, 246)">{{ j.dateOfBirth }}</td>
   
-                <td style="color:rgb(75, 174, 246)">{{ student.lastUpdate }}</td>
-        
+                <!-- <td style="color:rgb(75, 174, 246)">{{ student.lastUpdate }}</td> -->
               </tr>
         
             </tbody>
         
           </table>
+          
+          
         </div>
+        <div *ngIf="isShown" class="page-container">
+        <p>
+          showing page {{currentPage}} of {{totalPages}} 
+          </p>
+          <button class="buttoon-next">Next Page</button>
+        </div>
+
 
         <!-- <p class="server-data">{{ secureData }}</p> -->
       </div>
-      <div class="unsecure-container btn-container">
+      <!-- <div class="unsecure-container btn-container">
         <button (click)="addNewEntry()" class="button" role="button">
           New Entry
         </button>
         <p>Click here to make a new Entry</p>
         <p class="server-data">{{ unsecureData }}</p>
-      </div>
+      </div> -->
     </section>
   </main>
 </body>
