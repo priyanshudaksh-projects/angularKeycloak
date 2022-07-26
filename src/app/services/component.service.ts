@@ -6,7 +6,7 @@ import { GlobalConstants } from '../common/global-constants';
   providedIn: 'root',
 })
 export class AppService {
-  private REST_API_SERVER_SECURE = 'https://api-am.cocimexanpilot.org/api/v1/search';
+  private REST_API_SERVER_SECURE = 'https://dev.cocimexanpilot.org/api/v1/search';
   private REST_API_SERVER_UNSECURE = 'https://dev.cocimexanpilot.org/api/v1/missingpersondocument';
   private REST_API_SERVER_LOGIN = GlobalConstants.apiURL + '/api/v1/login';
 

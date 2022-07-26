@@ -7,24 +7,6 @@ import { AppService } from 'src/app/services/component.service';
 import { GlobalConstants } from '../../common/global-constants';
 
 
-// interface Users {
-//   caseNumber:Number,
-//   username:String,
-//   state:String,
-//   createDate:String,
-//   lastUpdated:String
-
-// }
-
-interface SearchResults {
-  // searchResults:any,
-  totalPages: Number,
-  totalResults: Number,
-  currentPage: Number,
-  numberOfRecords: Number
-
-}
-
 @Component({
   selector: 'app-content',
   templateUrl: './content.component.html',
@@ -47,8 +29,8 @@ export class ContentComponent {
 
   username: string = '';
 
-  buttonDisabled:boolean=false;
-  prevButton:boolean=false;
+  buttonDisabled: boolean = false;
+  prevButton: boolean = false;
 
   constructor(
     private router: Router,
@@ -57,10 +39,6 @@ export class ContentComponent {
   ) { }
 
   ngOnInit() {
-    // if (localStorage.getItem("logged") !== "true") {
-    //   this.router.navigate(["/login"]);
-    // }
-    // this.userName = localStorage.getItem("user_name");
     const details = this.keycloakService.getKeycloakInstance();
     localStorage.setItem('access_token', details.token || '');
     localStorage.setItem('refresh_token', details.refreshToken || '');
@@ -78,14 +56,15 @@ export class ContentComponent {
   }
 
   callSecuredApi() {
-    this.isShown = !this.isShown;
+    if (this.isShown == false) {
+      this.isShown = !this.isShown;
+    }
     const body = {
       searchCriteria: this.username
     }
     this.appService.callSecureDataApi(body).subscribe(
       (data: any) => {
         //this.agencies = <SearchResults[]>data; 
-        console.log(data)
         this.totalPages = data.totalPages;
         this.searchResults = data.searchResults;
         this.currentPage = data.currentPage;
@@ -98,7 +77,6 @@ export class ContentComponent {
         }
       },
       (error: any) => {
-        console.log('error------', error);
         alert('Session Expired Please login again');
         this.router.navigate(['/']);
       }
@@ -110,12 +88,10 @@ export class ContentComponent {
     //this.isShown = !this.isShown;
     const body = {
       searchCriteria: this.username,
-      pageNumber:(currentPage + 1)
+      pageNumber: (currentPage + 1)
     }
     this.appService.callSecureDataApi(body).subscribe(
       (data: any) => {
-        //this.agencies = <SearchResults[]>data; 
-        console.log(data)
         this.totalPages = data.totalPages;
         this.searchResults = data.searchResults;
         this.currentPage = data.currentPage;
@@ -128,7 +104,6 @@ export class ContentComponent {
         }
       },
       (error: any) => {
-        console.log('error------', error);
         alert('Session Expired Please login again');
         this.router.navigate(['/']);
       }

@@ -20,53 +20,53 @@
     <section>
       <div class="secure-container btn-container">
         <div class="search-field">
-        <input type="text" id="input-search" placeholder="ENTER SEARCH CRITERIA" [(ngModel)]="username">
-        <button (click)="callSecuredApi()" class="button" role="button"> SEARCH
-        </button>
-      </div>
+          <input type="text" id="input-search" placeholder="ENTER SEARCH CRITERIA" [(ngModel)]="username">
+          <button (click)="callSecuredApi()" class="button" role="button"> SEARCH
+          </button>
+        </div>
         <div class="container" *ngIf="isShown">
           <table class="table table-striped">
 
             <thead>
-                <tr>
-        
-                  <th style="color:#FFFF">First Name</th>
-        
-                  <th style="color:#FFFF">Family Name</th>
-        
-                  <th style="color:#FFFF">Birth Place</th>
-        
-                  <th style="color:#FFFF">DOB</th>
-  
-                  <th style="color:#FFFF">Father Name</th>
-        
-                </tr>
+              <tr>
+
+                <th style="color:#FFFF">First Name</th>
+
+                <th style="color:#FFFF">Family Name</th>
+
+                <th style="color:#FFFF">Birth Place</th>
+
+                <th style="color:#FFFF">DOB</th>
+
+                <th style="color:#FFFF">Father Name</th>
+
+              </tr>
             </thead>
-        
+
             <tbody>
-        
+
               <tr *ngFor="let j of searchResults">
-        
+
                 <td style="color:rgb(75, 174, 246)">{{ j.firstName }}</td>
-        
+
                 <td style="color:rgb(75, 174, 246)">{{ j.familyName }}</td>
-        
+
                 <td style="color:rgb(75, 174, 246)">{{ j.birthplace }}</td>
-        
+
                 <td style="color:rgb(75, 174, 246)">{{ j.dateOfBirth }}</td>
-  
+
                 <td style="color:rgb(75, 174, 246)">{{ j.familyState.fatherName }}</td>
               </tr>
-        
+
             </tbody>
-        
+
           </table>
-          
-          
+
+
         </div>
         <div *ngIf="isShown" class="page-container">
-        <p>
-          showing page {{currentPage + 1}} of {{totalPages}} 
+          <p>
+            page {{currentPage + 1}} of {{totalPages}}
           </p>
           <button class="buttoon-next" (click)="nextPage(currentPage-2)" [disabled]="prevButton">Prev Page</button>
           <button class="buttoon-next" (click)="nextPage(currentPage)" [disabled]="buttonDisabled">Next Page</button>
