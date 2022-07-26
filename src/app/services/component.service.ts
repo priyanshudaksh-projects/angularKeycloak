@@ -29,17 +29,14 @@ export class AppService {
     );
   }
 
-  callSecureDataApi(searchCriteria: any) {
+  callSecureDataApi(body: any) {
     const headerDict = {
       'Content-Type': 'application/json',
       Accept: '*/*',
       Authorization: 'bearer ' + localStorage.getItem('access_token'),
     };
 
-    const body = {
-      searchCriteria:searchCriteria
-    }
-
+    
     const requestOptions = {
       headers: new HttpHeaders(headerDict),
     };

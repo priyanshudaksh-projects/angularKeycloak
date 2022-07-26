@@ -28,7 +28,6 @@
           <table class="table table-striped">
 
             <thead>
-        
                 <tr>
         
                   <th style="color:#FFFF">First Name</th>
@@ -42,7 +41,6 @@
                   <th style="color:#FFFF">Father Name</th>
         
                 </tr>
-        
             </thead>
         
             <tbody>
@@ -57,7 +55,7 @@
         
                 <td style="color:rgb(75, 174, 246)">{{ j.dateOfBirth }}</td>
   
-                <!-- <td style="color:rgb(75, 174, 246)">{{ student.lastUpdate }}</td> -->
+                <td style="color:rgb(75, 174, 246)">{{ j.familyState.fatherName }}</td>
               </tr>
         
             </tbody>
@@ -68,9 +66,10 @@
         </div>
         <div *ngIf="isShown" class="page-container">
         <p>
-          showing page {{currentPage}} of {{totalPages}} 
+          showing page {{currentPage + 1}} of {{totalPages}} 
           </p>
-          <button class="buttoon-next">Next Page</button>
+          <button class="buttoon-next" (click)="nextPage(currentPage-2)" [disabled]="prevButton">Prev Page</button>
+          <button class="buttoon-next" (click)="nextPage(currentPage)" [disabled]="buttonDisabled">Next Page</button>
         </div>
 
 

@@ -18,11 +18,11 @@ import { GlobalConstants } from '../../common/global-constants';
 
 interface SearchResults {
   // searchResults:any,
-  totalPages:Number,
-  totalResults:Number,
-  currentPage:Number,
-  numberOfRecords:Number
-  
+  totalPages: Number,
+  totalResults: Number,
+  currentPage: Number,
+  numberOfRecords: Number
+
 }
 
 @Component({
@@ -34,29 +34,27 @@ interface SearchResults {
 
 export class ContentComponent {
   userName: any;
-  secureData: any;
-  unsecureData = '';
-  agencies:any;
+  value: any;
+  i = 0;
+  data: any;
+  isShown: boolean = false;
 
-  value:any;
-  i=0;
-  data:any;
-  isShown: boolean = false ;
+  totalPages: any;
+  totalResults: any;
+  currentPage: any;
+  numberOfRecords: any
+  searchResults: any;
 
-  totalPages:any;
-  totalResults:any;
-  currentPage:any;
-  numberOfRecords:any
-  searchResults:any;
-  
   username: string = '';
-  
+
+  buttonDisabled:boolean=false;
+  prevButton:boolean=false;
 
   constructor(
     private router: Router,
     private appService: AppService,
     private keycloakService: KeycloakService
-  ) {}
+  ) { }
 
   ngOnInit() {
     // if (localStorage.getItem("logged") !== "true") {
@@ -80,17 +78,24 @@ export class ContentComponent {
   }
 
   callSecuredApi() {
-    this.isShown = ! this.isShown;
-    console.log(this.userName)
-    this.appService.callSecureDataApi(this.username).subscribe(
+    this.isShown = !this.isShown;
+    const body = {
+      searchCriteria: this.username
+    }
+    this.appService.callSecureDataApi(body).subscribe(
       (data: any) => {
         //this.agencies = <SearchResults[]>data; 
         console.log(data)
         this.totalPages = data.totalPages;
         this.searchResults = data.searchResults;
         this.currentPage = data.currentPage;
-
-       
+        if (this.currentPage >= (this.totalPages - 1)) {
+          this.buttonDisabled = true;
+          this.prevButton = false
+        } else {
+          this.buttonDisabled = false;
+          this.prevButton = true
+        }
       },
       (error: any) => {
         console.log('error------', error);
@@ -100,21 +105,34 @@ export class ContentComponent {
     );
   }
 
-  addNewEntry() {
-    console.log('Adding new data');
-    this.appService.callUnsecureDataApi().subscribe(
+
+  nextPage(currentPage: any) {
+    //this.isShown = !this.isShown;
+    const body = {
+      searchCriteria: this.username,
+      pageNumber:(currentPage + 1)
+    }
+    this.appService.callSecureDataApi(body).subscribe(
       (data: any) => {
-        console.log(data);
-        alert('Entry Saved')
+        //this.agencies = <SearchResults[]>data; 
+        console.log(data)
+        this.totalPages = data.totalPages;
+        this.searchResults = data.searchResults;
+        this.currentPage = data.currentPage;
+        if (this.currentPage >= (this.totalPages - 1)) {
+          this.buttonDisabled = true;
+          this.prevButton = false
+        } else {
+          this.buttonDisabled = false;
+          this.prevButton = true
+        }
       },
-      (error) => {
-        console.log('error ', error);
+      (error: any) => {
+        console.log('error------', error);
+        alert('Session Expired Please login again');
+        this.router.navigate(['/']);
       }
     );
   }
 
-  nextPage(){
-    
-  }
-  
 }
